@@ -10,8 +10,8 @@ type Key = "gift" | "envelope" | "polaroids" | "cake";
 
 const items: { key: Key; label: string; emoji: string; note: string; tilt: number; pos: string }[] = [
   { key: "gift", label: "open this first", emoji: "🎁", note: "tap me!", tilt: -3, pos: "" },
-  { key: "envelope", label: "a little letter", emoji: "✉️", note: "for you ♡", tilt: 2, pos: "" },
-  { key: "polaroids", label: "photo stack", emoji: "📸", note: "cute ones", tilt: -2, pos: "" },
+  { key: "envelope", label: "short letter", emoji: "✉️", note: "for you ♡", tilt: 2, pos: "" },
+  { key: "polaroids", label: "photo stack", emoji: "📸", note: "pitikks", tilt: -2, pos: "" },
   { key: "cake", label: "make a wish", emoji: "🎂", note: "🕯️🕯️🕯️", tilt: 3, pos: "" },
 ];
 
@@ -32,7 +32,7 @@ export function GiftRoom({ onAllOpened }: { onAllOpened: () => void }) {
   return (
     <section className="relative px-4 py-16">
       <div className="mb-8 text-center">
-        <p className="font-hand text-xl text-primary">Virtuel Gifts form your idolll ✿</p>
+        <p className="font-hand text-xl text-primary">Virtuel Gifts from your idolll ✿</p>
         <h2 className="mt-1 inline-block -rotate-1 font-display text-4xl text-ink md:text-5xl">
           Tap on items below♡
         </h2>

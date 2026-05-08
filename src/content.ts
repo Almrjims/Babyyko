@@ -11,8 +11,8 @@ export const HER_NAME = "my bebeee";
 export const intro = {
   small: "I made this for you for your 20th bdayy hehe👵",
   title: "happy birthday",
-  highlight: "bebe ko langg bab babyy bb",
-  button: "open your virtual gifts",
+  highlight: "langgg.. my babyyy",
+  button: "Open Your Gifts",
   scribble: "Kani salang lang ha kay wala paka ni uli hehe",
 };
 
