@@ -11,77 +11,80 @@ export function PolaroidStack({ open, onClose }: { open: boolean; onClose: () =>
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-5"
+          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-ink/50 p-4 backdrop-blur-[2px] md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
           onClick={() => (zoom !== null ? setZoom(null) : onClose())}
         >
           <motion.div
-            initial={{ scale: 0.9 }}
+            initial={{ scale: 0.92 }}
             animate={{ scale: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            exit={{ scale: 0.92, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 28 }}
             onClick={(e) => e.stopPropagation()}
-            className="paper relative w-full max-w-2xl rounded-2xl p-6 md:p-8"
+            className="paper relative my-auto w-full max-w-2xl rounded-xl p-5 md:rounded-2xl md:p-8"
           >
-            <span className="tape -top-3 left-10 -rotate-6" />
-            <p className="text-center font-hand text-2xl text-primary">
+            <span className="tape -top-2.5 left-10 -rotate-4" style={{ width: 70 }} />
+            <p className="text-center font-hand text-xl text-primary md:text-2xl">
               little photo stack ♡
             </p>
-            <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3">
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:mt-6 md:gap-5">
               {polaroids.map((p, i) => (
                 <motion.button
                   key={i}
-                  initial={{ opacity: 0, y: 20, rotate: 0 }}
+                  initial={{ opacity: 0, y: 16, rotate: 0 }}
                   animate={{ opacity: 1, y: 0, rotate: tilts[i % tilts.length] }}
-                  transition={{ delay: i * 0.07, type: "spring", stiffness: 160 }}
-                  whileHover={{ rotate: 0, scale: 1.06, zIndex: 10 }}
+                  transition={{ delay: i * 0.06, type: "spring", stiffness: 180, damping: 20 }}
+                  whileHover={{ rotate: 0, scale: 1.04, zIndex: 10 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setZoom(i)}
                   className="polaroid"
                 >
                   {i % 3 === 0 && (
                     <span
-                      className="tape -top-3 left-4 -rotate-12"
-                      style={{ width: 60, height: 18 }}
+                      className="tape -top-2.5 left-3 -rotate-8"
+                      style={{ width: 48, height: 14 }}
                     />
                   )}
                   <img
                     src={p.src}
                     alt={p.caption}
                     loading="lazy"
-                    className="aspect-square w-full object-cover"
+                    className="aspect-square w-full rounded-[1px] object-cover"
                   />
-                  <p className="mt-2 text-center font-hand text-base text-ink">
+                  <p className="mt-1.5 text-center font-hand text-sm text-ink md:mt-2 md:text-base">
                     {p.caption}
                   </p>
                 </motion.button>
               ))}
             </div>
-            <button
-              onClick={onClose}
-              className="mx-auto mt-6 block font-hand text-lg text-ink/60 hover:underline"
-            >
+            <button onClick={onClose} className="btn-close mt-6">
               close stack
             </button>
           </motion.div>
 
+          {/* Zoomed polaroid view */}
           <AnimatePresence>
             {zoom !== null && (
               <motion.div
-                className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/70 p-6"
+                className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/60 p-5 backdrop-blur-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
                 onClick={() => setZoom(null)}
               >
                 <motion.div
-                  className="polaroid max-w-md"
-                  initial={{ scale: 0.8, rotate: -3 }}
-                  animate={{ scale: 1, rotate: -2 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
+                  className="polaroid max-w-sm md:max-w-md"
+                  initial={{ scale: 0.85, rotate: -2 }}
+                  animate={{ scale: 1, rotate: -1 }}
+                  exit={{ scale: 0.85, opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 >
-                  <img src={polaroids[zoom].src} alt="" className="w-full" />
-                  <p className="mt-3 text-center font-hand text-2xl text-ink">
+                  <img src={polaroids[zoom].src} alt="" className="w-full rounded-[1px]" />
+                  <p className="mt-2.5 text-center font-hand text-xl text-ink md:mt-3 md:text-2xl">
                     {polaroids[zoom].caption}
                   </p>
                 </motion.div>

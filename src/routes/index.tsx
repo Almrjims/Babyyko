@@ -24,8 +24,10 @@ function Index() {
         <div ref={roomRef} />
         <GiftRoom onAllOpened={() => setUnlocked(true)} />
         <FinalGift unlocked={unlocked} />
-        <footer className="py-10 text-center font-hand text-lg text-muted-foreground">
-          made with ♡ — just for you
+        <footer className="py-12 text-center md:py-14">
+          <p className="font-hand text-base text-ink/40 md:text-lg">
+            made with ♡ — just for you
+          </p>
         </footer>
       </div>
     </main>

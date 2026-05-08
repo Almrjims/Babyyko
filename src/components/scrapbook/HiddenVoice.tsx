@@ -60,9 +60,9 @@ export function HiddenHeart() {
     <>
       <motion.button
         onClick={handleClick}
-        whileHover={{ scale: 1.2, rotate: 8 }}
-        whileTap={{ scale: 0.85 }}
-        className="absolute right-5 top-3 z-20 select-none text-xl text-primary/70"
+        whileHover={{ scale: 1.15, rotate: 6 }}
+        whileTap={{ scale: 0.9 }}
+        className="absolute right-4 top-2.5 z-20 select-none text-lg text-primary/60 transition-colors hover:text-primary/80"
         aria-label="heart sticker"
       >
         ♡
@@ -71,54 +71,58 @@ export function HiddenHeart() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/70 p-5"
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/55 p-4 backdrop-blur-[2px] md:p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
             onClick={() => setOpen(false)}
           >
             <motion.div
-              initial={{ scale: 0.85, y: 20 }}
+              initial={{ scale: 0.9, y: 16 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.85, opacity: 0 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-sm rounded-2xl bg-[oklch(0.96_0.02_85)] p-6 shadow-[0_0_60px_-10px_oklch(0.85_0.10_350/0.7)]"
+              className="paper relative w-full max-w-xs rounded-xl p-5 md:max-w-sm md:rounded-2xl md:p-6"
             >
-              <span className="tape -top-3 left-1/2 -translate-x-1/2 -rotate-3" />
-              <p className="font-hand text-xl text-primary">{hiddenVoice.caption}</p>
-              <p className="mt-1 font-hand text-sm text-ink/60">{hiddenVoice.timestamp}</p>
+              <span className="tape -top-2.5 left-1/2 -translate-x-1/2 -rotate-2" style={{ width: 60 }} />
+              <p className="font-hand text-lg text-primary md:text-xl">{hiddenVoice.caption}</p>
+              <p className="mt-1 font-hand text-xs text-ink/50 md:text-sm">{hiddenVoice.timestamp}</p>
 
-              {/* cassette-ish */}
-              <div className="mt-5 rounded-lg bg-ink/90 p-4">
+              {/* Cassette player - refined */}
+              <div className="mt-4 rounded-lg bg-ink/85 p-3.5 md:mt-5 md:p-4">
                 <div className="flex items-center justify-around">
                   {[0, 1].map((i) => (
                     <motion.div
                       key={i}
                       animate={{ rotate: playing ? 360 : 0 }}
-                      transition={{ duration: 2, repeat: playing ? Infinity : 0, ease: "linear" }}
-                      className="h-8 w-8 rounded-full border-2 border-primary/60 bg-ink"
+                      transition={{ duration: 2.5, repeat: playing ? Infinity : 0, ease: "linear" }}
+                      className="h-7 w-7 rounded-full border-2 border-primary/50 bg-ink md:h-8 md:w-8"
                     >
-                      <div className="m-auto mt-2 h-3 w-3 rounded-full bg-primary/60" />
+                      <div className="m-auto mt-1.5 h-2.5 w-2.5 rounded-full bg-primary/50 md:mt-2 md:h-3 md:w-3" />
                     </motion.div>
                   ))}
                 </div>
-                <div className="mt-3 rounded bg-cream/90 p-2">
+                <div className="mt-2.5 rounded bg-cream/85 p-2 md:mt-3">
                   <Waveform active={playing} />
                 </div>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={togglePlay}
-                className="mt-4 w-full rounded-full bg-primary py-2 font-serif text-primary-foreground"
+                className="btn-scrapbook mt-4 w-full text-sm md:text-base"
               >
                 {playing ? "pause ♡" : "play ▶"}
-              </button>
+              </motion.button>
 
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="mt-5 text-center font-hand text-lg text-ink"
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="mt-4 text-center font-hand text-base text-ink md:mt-5 md:text-lg"
               >
                 {hiddenVoice.reveal}
               </motion.p>

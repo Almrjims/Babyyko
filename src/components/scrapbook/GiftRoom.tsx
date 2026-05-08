@@ -30,44 +30,65 @@ export function GiftRoom({ onAllOpened }: { onAllOpened: () => void }) {
   };
 
   return (
-    <section className="relative px-4 py-16">
-      <div className="mb-8 text-center">
-        <p className="font-hand text-xl text-primary">Virtuel Gifts from your idolll ✿</p>
-        <h2 className="mt-1 inline-block -rotate-1 font-display text-4xl text-ink md:text-5xl">
+    <section className="relative px-5 py-20 md:px-8 md:py-24">
+      {/* Section header - cleaner hierarchy */}
+      <div className="mx-auto mb-12 max-w-lg text-center md:mb-14">
+        <motion.p 
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="font-hand text-lg text-primary/80 md:text-xl"
+        >
+          Virtuel Gifts from your idolll ✿
+        </motion.p>
+        <motion.h2 
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="mt-2 inline-block -rotate-1 font-display text-3xl text-ink md:text-4xl lg:text-5xl"
+        >
           Tap on items below♡
-        </h2>
-        <p className="mx-auto mt-2 max-w-md font-hand text-base text-ink/60">
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mx-auto mt-3 max-w-sm font-hand text-sm text-ink/50 md:text-base"
+        >
           (Hehe ma uwaw mn ko uy i made this para sa imo hopefully ganahan ka huhu..)
-        </p>
+        </motion.p>
       </div>
 
-      <div className="relative mx-auto grid max-w-4xl grid-cols-2 gap-5 md:grid-cols-4">
+      {/* Gift grid - better spacing and alignment */}
+      <div className="relative mx-auto grid max-w-3xl grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 md:gap-6">
         {items.map((it, i) => (
           <motion.button
             key={it.key}
             onClick={() => handleOpen(it.key)}
-            initial={{ opacity: 0, y: 20, rotate: 0 }}
+            initial={{ opacity: 0, y: 24, rotate: 0 }}
             whileInView={{ opacity: 1, y: 0, rotate: it.tilt }}
-            viewport={{ once: true }}
-            whileHover={{ y: -6, rotate: 0, scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            transition={{ delay: i * 0.08, type: "spring", stiffness: 160 }}
-            className="paper relative aspect-[4/5] rounded-2xl p-4 text-center"
+            viewport={{ once: true, margin: "-50px" }}
+            whileHover={{ y: -4, rotate: 0, scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ delay: i * 0.1, type: "spring", stiffness: 140, damping: 18 }}
+            className="paper relative aspect-[4/5] rounded-xl p-3 text-center sm:p-4"
           >
-            <span className="tape -top-3 left-1/2 -translate-x-1/2 -rotate-3" style={{ width: 60, height: 16 }} />
+            <span className="tape -top-2.5 left-1/2 -translate-x-1/2 -rotate-2" style={{ width: 56, height: 14 }} />
             {it.key === "gift" && <HiddenHeart />}
-            <div className="flex h-full flex-col items-center justify-center gap-2">
+            <div className="flex h-full flex-col items-center justify-center gap-1.5 sm:gap-2">
               <motion.div
-                animate={{ rotate: [0, -4, 4, 0] }}
-                transition={{ duration: 4, repeat: Infinity, delay: i * 0.4 }}
-                className="text-6xl md:text-7xl"
+                animate={{ rotate: [0, -3, 3, 0] }}
+                transition={{ duration: 5, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }}
+                className="text-5xl sm:text-6xl md:text-5xl lg:text-6xl"
               >
                 {it.emoji}
               </motion.div>
-              <p className="font-display text-2xl text-ink">{it.label}</p>
-              <p className="font-hand text-base text-ink/60">{it.note}</p>
+              <p className="font-display text-lg text-ink sm:text-xl md:text-lg lg:text-xl">{it.label}</p>
+              <p className="font-hand text-xs text-ink/50 sm:text-sm">{it.note}</p>
               {seen.has(it.key) && (
-                <p className="font-hand text-xs text-primary">opened ♡</p>
+                <p className="mt-0.5 font-hand text-xs text-primary/70">opened ♡</p>
               )}
             </div>
           </motion.button>
